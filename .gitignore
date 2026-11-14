@@ -1,0 +1,20 @@
+# Your own settings (where models are saved)
+config.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Models should never end up in the repo
+MODELS/
+*.gguf
+*.safetensors
+
+# OS and editor clutter
+.DS_Store
+._*
+Thumbs.db
+*.log
+.idea/
+.vscode/
