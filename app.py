@@ -34,6 +34,7 @@ REPO_RE = re.compile(r"^[A-Za-z0-9][\w.\-]*/[\w.\-]+$")
 OTHER_WEIGHTS = (".bin", ".pt", ".pth", ".ckpt", ".onnx", ".h5", ".msgpack", ".ot", ".tflite", ".mlmodel")
 QUANT_RE = re.compile(r"(?i)(?<![a-z0-9])((?:i\d-)?(?:q\d+(?:_[a-z0-9]+)*|iq\d+(?:_[a-z0-9]+)*|f16|f32|bf16|fp16|fp32))(?![a-z0-9])")
 SPLIT_RE = re.compile(r"-\d{5}-of-\d{5}")
+XET_ONLY_OVER = 50 * 1000 ** 3  # huggingface_hub refuses plain HTTP downloads above 50 GB
 
 def cache_env(root):
     """Keep every byte of cache next to the models, never on some other disk."""
@@ -42,7 +43,8 @@ def cache_env(root):
         "HF_XET_CACHE": str(root / ".hf-cache" / "xet"),
         "HF_HUB_DISABLE_TELEMETRY": "1",
         # Plain HTTP downloads grow the partial file byte by byte, which is what
-        # makes the progress bar and resume trustworthy. Xet preallocates instead.
+        # makes the progress bar and resume trustworthy. run_job turns xet back on
+        # for files over 50 GB, which cannot be fetched any other way.
         "HF_HUB_DISABLE_XET": "1",
     }
 
@@ -398,6 +400,8 @@ def run_job(job):
     if shutil.which("caffeinate"):  # macOS: keep the computer awake while downloading
         cmd = ["caffeinate", "-i", *cmd]
     env = os.environ | cache_env(Path(job["root"]))
+    if max(job["files"].values()) > XET_ONLY_OVER:
+        del env["HF_HUB_DISABLE_XET"]  # Hugging Face only serves files this big through xet
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env,
                             start_new_session=os.name == "posix")
     job["proc"] = proc

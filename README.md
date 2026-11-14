@@ -137,3 +137,7 @@ Your chosen save location is stored in `config.json` next to the app. That file 
 - `vendor/three.module.min.js` — [three.js](https://threejs.org) r160, MIT licensed, bundled so the app needs no CDN
 
 This project is not affiliated with Hugging Face.
+
+## License
+
+[MIT](LICENSE)
