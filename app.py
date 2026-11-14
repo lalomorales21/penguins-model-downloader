@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Model Downloader: a small local web app that downloads Hugging Face models
+"""Penguin's Model Downloader: a small local web app that downloads Hugging Face models
 to this computer or an external drive, sorted by format.
 
     MODELS/GGUF/<org>/<repo>/          llama.cpp, Ollama, LM Studio
@@ -651,7 +651,7 @@ def main():
     threading.Thread(target=worker, daemon=True).start()
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     where = storage.root() or "(not chosen yet)"
-    print(f"Model Downloader running at {url}\nSaving to {where}\nClose this window to stop it.")
+    print(f"Penguin's Model Downloader running at {url}\nSaving to {where}\nClose this window to stop it.")
     if not os.environ.get("MODELS_NO_BROWSER"):
         webbrowser.open(url)
     try:

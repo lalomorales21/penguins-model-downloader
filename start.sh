@@ -1,5 +1,5 @@
 #!/bin/sh
-# Starts Model Downloader. The first run sets up a private Python environment in .venv.
+# Starts Penguin's Model Downloader. The first run sets up a private Python environment in .venv.
 set -e
 cd "$(dirname "$0")"
 PY="${PYTHON:-python3}"

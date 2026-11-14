@@ -1,5 +1,5 @@
 @echo off
-rem Windows: double-click this file to start Model Downloader.
+rem Windows: double-click this file to start Penguin's Model Downloader.
 cd /d "%~dp0"
 if not exist .venv\Scripts\python.exe (
   echo First run: setting things up, about a minute...

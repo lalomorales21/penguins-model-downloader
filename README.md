@@ -1,8 +1,8 @@
-# Model Downloader
+# Penguin's Model Downloader
 
 A friendly little app for downloading AI models from [Hugging Face](https://huggingface.co) to your computer or an external drive. Paste a link onto the penguin's notepad and he tells you, in plain English, what the model is, what software runs it, which file to pick, and whether it will fit your computer.
 
-![Model Downloader showing a chat model with the penguin's recommended version](docs/screenshot.jpg)
+![Penguin's Model Downloader showing a chat model with the penguin's recommended version](docs/screenshot.jpg)
 
 It runs entirely on your own machine and opens in your browser. Nothing is uploaded anywhere; it only talks to Hugging Face to look up and download models.
 
